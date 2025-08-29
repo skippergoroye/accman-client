@@ -1,2 +1,2 @@
-export const BASE_URL = "https://account-management-sever.onrender.com/";
+export const BASE_URL = "https://accman-server.onrender.com/api";
 export const USERS_URL = "";

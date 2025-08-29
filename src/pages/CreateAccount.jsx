@@ -90,7 +90,7 @@ const CreateAccount = () => {
         },
       });
     } catch (error) {
-      toast.error(error.data.message);
+      toast.error(error?.data?.message);
       console.error("registration failed:", error);
     }
   };
