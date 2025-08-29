@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hideScrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hideScrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@layer utilities {
+  .mediafileContainer {
+    @apply relative box-border flex h-14 !w-14 flex-col items-center justify-center overflow-hidden;
+  }
+  .centered {
+    @apply flex items-center justify-center;
+  }
+  .between {
+    @apply flex items-center justify-between;
+  }
+}
