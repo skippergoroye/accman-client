@@ -2,15 +2,7 @@ import { useState } from "react";
 import SideImg from "../assets/PNG/SideImg.png";
 import Logo from "../assets/PNG/logo.png";
 
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../components/ui/form";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,9 +15,7 @@ import OnboardingLayout from "../layout/OnboardingLayout";
 import { useSignupMutation } from "../features/api/users.js";
 
 // Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
-const passwordValidation = new RegExp(
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-);
+const passwordValidation = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
 
 const formSchema = z
   .object({
@@ -38,21 +28,15 @@ const formSchema = z
     email: z.string().email("Enter a valid email address.").min(1, {
       message: "Email is required.",
     }),
-    phone: z.string().min(11, {
+    phoneNumber: z.string().min(11, {
       message: "Phone number should be 11digits",
     }),
-    password: z
-      .string()
-      .min(1, { message: "Must have at least 1 character" })
-      .regex(passwordValidation, {
-        message: "Your password is not valid",
-      }),
-    confirmPassword: z
-      .string()
-      .min(1, { message: "Must have at least 1 character" })
-      .regex(passwordValidation, {
-        message: "Your password is not valid",
-      }),
+    password: z.string().min(1, { message: "Must have at least 1 character" }).regex(passwordValidation, {
+      message: "Your password is not valid",
+    }),
+    confirmPassword: z.string().min(1, { message: "Must have at least 1 character" }).regex(passwordValidation, {
+      message: "Your password is not valid",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -67,7 +51,7 @@ const CreateAccount = () => {
       firstName: "",
       lastName: "",
       email: "",
-      phone: "",
+      phoneNumber: "",
       password: "",
       confirmPassword: "",
     },
@@ -82,12 +66,16 @@ const CreateAccount = () => {
   const onSubmit = async (data) => {
     try {
       const response = await signup(data).unwrap();
-      console.log(response, "REGISTERRRRR");
+      console.log(response, "REGISTERRRRR"); // response.user.email is here
+
       successNotifying(response.message);
+
+      // Option 1: Pass via query param
+      // navigate(`/verification-mail?email=${encodeURIComponent(response?.user?.email)}`);
+
+      // Option 2: Pass via state (won’t persist on refresh)
       navigate("/verification-mail", {
-        state: {
-          email: response?.data?.user?.email,
-        },
+        state: { email: response?.user?.email },
       });
     } catch (error) {
       toast.error(error?.data?.message);
@@ -105,12 +93,8 @@ const CreateAccount = () => {
         <Link to="/">
           <img src={Logo} alt="Logo" className="h-[20px] md:h-[34px]" />
         </Link>
-        <h1 className="md:text-4xl text-2xl font-medium leading-[40px] mt-8">
-          Create an account
-        </h1>
-        <p className="mt-px text-base font-normal text-neutral-600">
-          Create your accman account
-        </p>
+        <h1 className="md:text-4xl text-2xl font-medium leading-[40px] mt-8">Create an account</h1>
+        <p className="mt-px text-base font-normal text-neutral-600">Create your accman account</p>
         <Form {...form}>
           <form className="mt-10 space-y-1">
             <div className="grid grid-cols-2 gap-4">
@@ -121,11 +105,7 @@ const CreateAccount = () => {
                   <FormItem>
                     <FormLabel className="">First name</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Enter your first name"
-                        className="border-neutral-300"
-                        {...field}
-                      />
+                      <Input placeholder="Enter your first name" className="border-neutral-300" {...field} />
                     </FormControl>
                     <FormDescription />
                     <FormMessage />
@@ -139,11 +119,7 @@ const CreateAccount = () => {
                   <FormItem>
                     <FormLabel className="">Last name</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Enter your last name"
-                        className="border-neutral-300"
-                        {...field}
-                      />
+                      <Input placeholder="Enter your last name" className="border-neutral-300" {...field} />
                     </FormControl>
                     <FormDescription />
                     <FormMessage />
@@ -173,17 +149,12 @@ const CreateAccount = () => {
             />
             <FormField
               control={form.control}
-              name="phone"
+              name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="">Phone number</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="08033xxxxxx"
-                      className="border-neutral-300"
-                      type="tel"
-                      {...field}
-                    />
+                    <Input placeholder="08033xxxxxx" className="border-neutral-300" type="tel" {...field} />
                   </FormControl>
                   <FormDescription />
                   <FormMessage />
@@ -233,19 +204,10 @@ const CreateAccount = () => {
             By clicking on create account below you agree to our{" "}
             <Link className="font-semibold text-purple-600">Terms of use</Link>
             {" and "}
-            <Link className="font-semibold text-purple-600">
-              Privacy policy.
-            </Link>
+            <Link className="font-semibold text-purple-600">Privacy policy.</Link>
           </p>
-          <Button
-            onClick={form.handleSubmit(onSubmit)}
-            className="w-full h-12 mt-2 bg-violet-600 hover:bg-violet-400"
-          >
-            {isLoading ? (
-              <SyncLoader size={"0.8rem"} color="#ffffff" />
-            ) : (
-              "Create account"
-            )}
+          <Button onClick={form.handleSubmit(onSubmit)} className="w-full h-12 mt-2 bg-violet-600 hover:bg-violet-400">
+            {isLoading ? <SyncLoader size={"0.8rem"} color="#ffffff" /> : "Create account"}
           </Button>
           <p className="mt-4 text-sm font-normal text-center">
             Already have an account ?{" "}

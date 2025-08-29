@@ -6,7 +6,7 @@ const VerificationMail = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(location.state.email, "ROUTEEES");
+  // console.log("ROUTEEES", location);
   setTimeout(() => {
     navigate("/verify-otp");
   }, 10000);
