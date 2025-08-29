@@ -1,14 +1,6 @@
 import Logo from "../assets/PNG/logo.png";
 import { useState, useEffect } from "react";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../components/ui/form";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -58,17 +50,20 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data).unwrap();
-      console.log(response);
+      // console.log(response);
+
       dispatch(
         setUserCredentials({
-          user: response.data.user,
-          token: response.data.accessToken,
+          user: response.user,
+          token: response.access_token,
         })
       );
-      successNotifying(response.message);
+
+      // use the message from the response
+      successNotifying(response.message || "Login successful!");
       navigate("/dashboard");
     } catch (error) {
-      toast.error(error.data.message);
+      toast.error(error?.data?.message || "Login failed");
       // console.log(error)
     }
   };
@@ -83,12 +78,8 @@ const Login = () => {
         <Link to="/">
           <img src={Logo} alt="Logo" className="h-[20px] md:h-[34px]" />
         </Link>
-        <h1 className="md:text-4xl text-2xl font-medium leading-[40px] mt-7">
-          Welcome back!
-        </h1>
-        <p className="mt-px text-base font-normal text-neutral-600">
-          Sign in to your account
-        </p>
+        <h1 className="md:text-4xl text-2xl font-medium leading-[40px] mt-7">Welcome back!</h1>
+        <p className="mt-px text-base font-normal text-neutral-600">Sign in to your account</p>
         <Form {...form}>
           <form className="mt-10 space-y-6">
             <FormField
@@ -124,15 +115,9 @@ const Login = () => {
                       {...field}
                       rightIcon={
                         showPassword ? (
-                          <Eye
-                            className="cursor-pointer"
-                            onClick={() => setShowPassword(!showPassword)}
-                          />
+                          <Eye className="cursor-pointer" onClick={() => setShowPassword(!showPassword)} />
                         ) : (
-                          <EyeOff
-                            className="cursor-pointer"
-                            onClick={() => setShowPassword(!showPassword)}
-                          />
+                          <EyeOff className="cursor-pointer" onClick={() => setShowPassword(!showPassword)} />
                         )
                       }
                     />
@@ -148,15 +133,8 @@ const Login = () => {
               Forgot password?
             </Link>
           </p>
-          <Button
-            onClick={form.handleSubmit(onSubmit)}
-            className="w-full h-12 mt-6 bg-violet-600 hover:bg-violet-400"
-          >
-            {isLoading ? (
-              <SyncLoader size={"0.8rem"} color="#ffffff" />
-            ) : (
-              "Sign In"
-            )}
+          <Button onClick={form.handleSubmit(onSubmit)} className="w-full h-12 mt-6 bg-violet-600 hover:bg-violet-400">
+            {isLoading ? <SyncLoader size={"0.8rem"} color="#ffffff" /> : "Sign In"}
           </Button>
           <p className="mt-4 text-sm text-center">
             Don’t have an account ?{" "}
