@@ -54,6 +54,10 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+
+
+
+
     addFund: builder.mutation({
       query: (values) => ({
         url: `/api/fund/add`,
@@ -83,6 +87,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    
     updateUser: builder.mutation({
       query: ({ id, updatedUser }) => ({
         url: `/api/user/${id}`,
@@ -99,6 +105,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+
+    
     getTransactionsUserId: builder.query({
       query: (userId, tranId) => `/api/transaction/${userId}/${tranId}`,
       providesTags: ["Users"],
