@@ -8,7 +8,7 @@ export const adminApiSlice = apiSliceAdmin.injectEndpoints({
   endpoints: (builder) => ({
     loginAdmin: builder.mutation({
       query: (values) => ({
-        url: "/api/auth/login/admin",
+        url: "/admin/login",
         method: "POST",
         body: values,
         async onQueryStarted(arg, { queryFulfilled, dispatch }) {

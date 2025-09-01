@@ -43,7 +43,6 @@ const VerifyOtp = () => {
 
   const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
 
-  // console.log(location, "ROUTEEES");
 
   const successNotifying = () => {
     toast.success("Email verified successfully");

@@ -40,8 +40,8 @@ const AdminLogin = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "obadara16@gmail.com",
-      password: "accman1234",
+      email: "skippergoroye@gmail.com",
+      password: "adminpassword",
     },
   });
 
@@ -52,20 +52,24 @@ const AdminLogin = () => {
   }, [navigate, adminInfo]);
 
   const onSubmit = async (data) => {
-    loginAdmin(data)
-      .unwrap()
-      .then((res) => {
-        console.log({ res });
-        if (res?.data) {
-          dispatch(
-            setAdminCredentials({
-              user: res.data.admin,
-              token: res.data.accessToken,
-            })
-          );
-          navigate("/backoffice/dashboard");
-        }
-      });
+    try {
+      const res = await loginAdmin(data).unwrap();
+
+      if (res?.admin && res?.accessToken) {
+        dispatch(
+          setAdminCredentials({
+            user: res.admin, 
+            token: res.accessToken, 
+          })
+        );
+
+        toast.success("Login successful 🎉");
+        navigate("/backoffice/dashboard");
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      toast.error(error?.data?.message || "Login failed. Please try again.");
+    }
   };
 
   return (
@@ -84,12 +88,8 @@ const AdminLogin = () => {
           <div>
             <img src={Logo} alt="Logo" className="h-[20px] md:h-[34px]" />
           </div>
-          <h1 className="md:text-4xl text-2xl font-medium leading-[40px] mt-7">
-            Welcome back!
-          </h1>
-          <p className="mt-px text-base font-normal text-neutral-600">
-            Sign in to your account
-          </p>
+          <h1 className="md:text-4xl text-2xl font-medium leading-[40px] mt-7">Welcome back!</h1>
+          <p className="mt-px text-base font-normal text-neutral-600">Sign in to your account</p>
           <Form {...form}>
             <form className="mt-10 space-y-6">
               <FormField
@@ -125,15 +125,9 @@ const AdminLogin = () => {
                         {...field}
                         rightIcon={
                           showPassword ? (
-                            <Eye
-                              className="cursor-pointer"
-                              onClick={() => setShowPassword(!showPassword)}
-                            />
+                            <Eye className="cursor-pointer" onClick={() => setShowPassword(!showPassword)} />
                           ) : (
-                            <EyeOff
-                              className="cursor-pointer"
-                              onClick={() => setShowPassword(!showPassword)}
-                            />
+                            <EyeOff className="cursor-pointer" onClick={() => setShowPassword(!showPassword)} />
                           )
                         }
                       />
@@ -150,11 +144,7 @@ const AdminLogin = () => {
               disabled={isLoading}
               className="w-full h-12 mt-6 bg-violet-600 hover:bg-violet-400"
             >
-              {isLoading ? (
-                <SyncLoader size={"0.5rem"} color="#ffffff" />
-              ) : (
-                "Sign In"
-              )}
+              {isLoading ? <SyncLoader size={"0.5rem"} color="#ffffff" /> : "Sign In"}
             </Button>
           </Form>
         </div>

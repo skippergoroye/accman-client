@@ -39,7 +39,7 @@ const ResetPassword = () => {
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
   const successNotifying = () => {
-    toast.success("verification email sent Successful");
+    toast.success("Check your Email For Reset Link");
   };
 
   const onSubmit = async (data) => {
