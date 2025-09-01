@@ -37,19 +37,21 @@ const VerifyOtp = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
+      otp: ""
     },
   });
 
   const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
 
-  console.log(location, "ROUTEEES");
+  // console.log(location, "ROUTEEES");
 
   const successNotifying = () => {
-    toast.success("Otp verification Successful");
+    toast.success("Email verified successfully");
   };
 
   const onSubmit = async (data) => {
     try {
+      console.log("otp data", data)
       const response = await verifyOtp(data).unwrap();
       successNotifying();
       navigate("/login");

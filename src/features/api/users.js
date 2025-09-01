@@ -30,6 +30,14 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+     verifyOtp: builder.mutation({
+      query: (values) => ({
+        url: "/auth/verify-email",
+        method: "POST",
+        body: values,
+      }),
+    }),
+
     forgotPassword: builder.mutation({
       query: (values) => ({
         url: "/api/auth/forgot-password",
@@ -38,13 +46,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    verifyOtp: builder.mutation({
-      query: (values) => ({
-        url: "/api/auth/verify-otp",
-        method: "POST",
-        body: values,
-      }),
-    }),
+   
     resetPassword: builder.mutation({
       query: (data) => ({
         url: `/api/auth/reset-new-password/${data.valTwo}`,

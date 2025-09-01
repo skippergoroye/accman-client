@@ -1,9 +1,4 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  RouterProvider,
-  Route,
-} from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from "react-router-dom";
 import {
   CreateAccount,
   ResetPassword,
@@ -35,22 +30,21 @@ const router = createBrowserRouter(
       <Route>
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
+        <Route path="create-account" element={<CreateAccount />} />
+        <Route path="verify-otp" element={<VerifyOtp />} />
+        <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="reset-new-password/:id" element={<ResetNewPassword />} />
+        <Route path="verification-mail" element={<VerificationMail />} />
 
         {/* Private Users Route */}
         <Route path="" element={<PrivateUserRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
-        </Route>
+          <Route path="transactions" element={<Transactions />} />
 
-        <Route path="reset-password" element={<ResetPassword />} />
-        <Route path="verify-otp" element={<VerifyOtp />} />
-        <Route path="reset-new-password/:id" element={<ResetNewPassword />} />
-        <Route path="transactions" element={<Transactions />} />
-        <Route path="create-account" element={<CreateAccount />} />
-        <Route path="verification-mail" element={<VerificationMail />} />
-        
-        <Route path="settings" element={<Settings />}>
-          <Route index element={<AccountSettings />} />
-          <Route path="security-settings" element={<SecuritySettings />} />
+          <Route path="settings" element={<Settings />}>
+            <Route index element={<AccountSettings />} />
+            <Route path="security-settings" element={<SecuritySettings />} />
+          </Route>
         </Route>
 
         {/* Private Admin Route */}

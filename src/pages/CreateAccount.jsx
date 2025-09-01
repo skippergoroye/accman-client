@@ -66,7 +66,7 @@ const CreateAccount = () => {
   const onSubmit = async (data) => {
     try {
       const response = await signup(data).unwrap();
-      console.log(response, "REGISTERRRRR"); // response.user.email is here
+      // console.log(response, "REGISTERRRRR"); // response.user.email is here
 
       successNotifying(response.message);
 
