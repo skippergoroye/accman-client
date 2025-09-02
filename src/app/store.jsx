@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import usersReducer from "../features/users/userSlice";
-import userAuthReducer from "../features/auth/authSliceUser";
+// import userAuthReducer from "../features/auth/authSliceUser";
+import authReducer from "../features/auth/authSliceUser"
 import adminAuthReducer from "../features/auth/authSliceAdmin";
 import { apiSlice } from "../features/api/apiSlice";
 import { apiSliceAdmin } from "../features/api/adminApiSlice";
@@ -9,7 +10,7 @@ import { apiSliceAdmin } from "../features/api/adminApiSlice";
 export default configureStore({
   reducer: {
     users: usersReducer,
-    authUser: userAuthReducer,
+    authUser: authReducer,
     authAdmin: adminAuthReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
     [apiSliceAdmin.reducerPath]: apiSliceAdmin.reducer,

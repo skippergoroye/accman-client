@@ -60,7 +60,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 
     addFund: builder.mutation({
       query: (values) => ({
-        url: `/api/fund/add`,
+        url: `/dashboard/add-funds`,
         method: "POST",
         body: values,
         async onQueryStarted(arg, { queryFulfilled, dispatch }) {

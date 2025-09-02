@@ -50,12 +50,12 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data).unwrap();
-      // console.log(response);
+      console.log(response);
 
       dispatch(
         setUserCredentials({
           user: response.user,
-          token: response.access_token,
+          token: response.accessToken, // ✅ match the response key
         })
       );
 
