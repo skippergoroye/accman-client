@@ -18,13 +18,13 @@ const Home = () => {
           <div className="flex gap-6">
             <Link
               to="/login"
-              className="bg-[#F9FAFB] border-2 border-[#CBD5E1] text-[16px] py-2 px-8 rounded-lg text-black"
+              className="bg-[#F9FAFB] border-2 border-[#CBD5E1] text-[16px] py-2 px-8 rounded-lg text-black transition-transform duration-300 hover:scale-105 hover:animate-pulse"
             >
               Learn More
             </Link>
             <Link
               to="/create-account"
-              className="bg-[#374151] py-2 px-8 rounded-lg text-[16px] text-white"
+              className="bg-[#374151] py-2 px-8 rounded-lg text-[16px] text-white transition-transform duration-300 hover:scale-105 hover:animate-pulse"
             >
               Get Started
             </Link>

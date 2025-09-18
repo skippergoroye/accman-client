@@ -22,7 +22,7 @@ const Transactions = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { userInfo } = useSelector((state) => state.authUser);
   const { data, isLoading, isFetching } = useGetUserTransactionsQuery(
-    userInfo?._id || ""
+    userInfo?.id || ""
   );
 
   return (
@@ -72,7 +72,7 @@ const Transactions = () => {
                       <TableCell>
                         {row?.userId?.firstName} {row?.userId?.lastName}
                       </TableCell>
-                      <TableCell>{row?._id}</TableCell>
+                      <TableCell>{row?.id}</TableCell>
                       <TableCell>{row?.type && row?.type}</TableCell>
                       <TableCell>
                         {new Intl.NumberFormat("en-US", {

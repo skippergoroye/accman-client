@@ -1,0 +1,1 @@
+TODO: Add hover interactions to landing page buttons (scale: 105%, animate-pulse, smooth transitions)

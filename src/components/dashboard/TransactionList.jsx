@@ -14,8 +14,12 @@ import FetchingComp from "../FetchingComp";
 function TransactionList() {
   const { userInfo } = useSelector((state) => state.authUser);
   const { data, isLoading, isFetching } = useGetUserTransactionsQuery(
-    userInfo?._id || ""
+    userInfo?.id || ""
   );
+
+
+
+  console.log("data", data)
   return (
     <div className="col-span-2  pt-7 px-6 bg-white rounded-lg h-[400px]">
       <h3>Latest Transactions</h3>
@@ -45,10 +49,11 @@ function TransactionList() {
                 .map((row, i) => (
                   <TableRow key={i}>
                     <TableCell className="w-min">{row?.status}</TableCell>
+                      <TableCell>{row?.id}</TableCell>
                     <TableCell>
                       {row?.userId?.firstName} {row?.userId?.lastName}
                     </TableCell>
-                    <TableCell>{row?._id}</TableCell>
+                  
                     <TableCell>{row?.type}</TableCell>
                     <TableCell>
                       {new Intl.NumberFormat("en-US", {

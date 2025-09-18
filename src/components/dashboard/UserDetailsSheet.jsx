@@ -76,11 +76,11 @@ function UserDetailsSheet({ isOpen, onClose }) {
           <Button
             disabled={unblocking}
             onClick={() => {
-              unBlockUser(user?._id)
+              unBlockUser(user?.id)
                 .unwrap()
                 .then((res) => {
                   if (res?.data) {
-                    getSingleUser(user?._id);
+                    getSingleUser(user?.id);
                   }
                 });
             }}
@@ -96,11 +96,11 @@ function UserDetailsSheet({ isOpen, onClose }) {
           <Button
             disabled={blocking}
             onClick={() => {
-              blockUser(user?._id)
+              blockUser(user?.id)
                 .unwrap()
                 .then((res) => {
                   if (res?.data) {
-                    getSingleUser(user?._id);
+                    getSingleUser(user?.id);
                   }
                 });
             }}

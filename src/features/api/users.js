@@ -30,7 +30,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-     verifyOtp: builder.mutation({
+    verifyOtp: builder.mutation({
       query: (values) => ({
         url: "/auth/verify-email",
         method: "POST",
@@ -46,17 +46,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-   
     resetPassword: builder.mutation({
-      query: ({ id, body} ) => ({
+      query: ({ id, body }) => ({
         url: `/auth/reset-new-password/${id}`,
         method: "POST",
-        body: body
+        body: body,
       }),
     }),
-
-
-
 
     addFund: builder.mutation({
       query: (values) => ({
@@ -74,21 +70,11 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+
     getUserTransactions: builder.query({
-      query: (id) => `/api/transaction/find/user/${id}`,
-      providesTags: ["Users"],
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          const result = await queryFulfilled;
-          return result;
-        } catch (err) {
-          const { errorMessage } = parseError(err);
-          toastError(errorMessage);
-        }
-      },
+      query: (userId) => `/dashboard/find/user/${userId}`,
     }),
 
-    
     updateUser: builder.mutation({
       query: ({ id, updatedUser }) => ({
         url: `/api/user/${id}`,
@@ -106,7 +92,6 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    
     getTransactionsUserId: builder.query({
       query: (userId, tranId) => `/api/transaction/${userId}/${tranId}`,
       providesTags: ["Users"],
@@ -121,7 +106,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       },
     }),
     getBalance: builder.query({
-      query: (id) => `/api/user/balance`,
+      query: (id) => `/dashboard/balance`,
       providesTags: ["Users"],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {

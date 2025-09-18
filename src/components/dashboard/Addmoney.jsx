@@ -32,7 +32,7 @@ function Addmoney({ isOpen, onClose }) {
   const [addFund, { isLoading }] = useAddFundMutation();
   const { userInfo } = useSelector((state) => state.authUser);
   const [getUserTransactions] = useLazyGetUserTransactionsQuery(
-    userInfo?._id || ""
+    userInfo?.id || ""
   );
 
   const form = useForm({
@@ -49,7 +49,7 @@ function Addmoney({ isOpen, onClose }) {
   const onFund = () => {
     addFund({ amount: Number(form.watch("amount")) }).then((res) => {
       if (res?.data) {
-        getUserTransactions(userInfo?._id || "");
+        getUserTransactions(userInfo?.id || "");
         setIsOpen(!openAlert);
         onClose();
       }

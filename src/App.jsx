@@ -12,6 +12,7 @@ import {
   AccountSettings,
   SecuritySettings,
 } from "./pages";
+import { RefetchProvider } from "./context/RefetchContext.jsx"
 import Users from "./pages/Users";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminLayout from "./layout/AdminLayout";
@@ -70,8 +71,12 @@ const router = createBrowserRouter(
 function App() {
   return (
     <>
+         <RefetchProvider>
+
+     
       <RouterProvider router={router} />
       <ToastContainer />
+          </RefetchProvider>
     </>
   );
 }
