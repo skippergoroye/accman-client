@@ -76,11 +76,6 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     }),
 
 
-   
-
-
-
-   
 
     getSingleUserById: builder.query({
       query: (id) => `/user/find/${id}`,
@@ -101,6 +96,17 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+
+
+
+
+
+
+
+
+
+  // stope here
+
    /** to fix balance */
       getBalance: builder.query({
       query: (id) => `/dashboard/balance`,
@@ -116,7 +122,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       },
     }),
 
-    // stope here
+
 
 
 

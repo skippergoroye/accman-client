@@ -23,11 +23,12 @@ export const adminApiSlice = apiSliceAdmin.injectEndpoints({
       }),
     }),
     getAllUsers: builder.query({
-      query: () => "/api/user",
+      query: () => "/admin/getusers",
       providesTags: ["Auth"],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
+
           dispatch(setUsers(result?.data?.data));
           return result;
         } catch (err) {
@@ -37,6 +38,33 @@ export const adminApiSlice = apiSliceAdmin.injectEndpoints({
         }
       },
     }),
+
+
+     adminDashboardMetrics: builder.query({
+      query: (id) => `/admin/dashboard`,
+      providesTags: ["Users"],
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          return result;
+        } catch (err) {
+          const { errorMessage } = parseError(err);
+          toastError(errorMessage);
+        }
+      },
+    }),
+
+
+
+
+
+
+    
+    // stop here
+
+
+
+
     getSingleUser: builder.query({
       query: (id) => `/api/user/find/${id}`,
       providesTags: ["Auth"],
@@ -176,19 +204,7 @@ export const adminApiSlice = apiSliceAdmin.injectEndpoints({
         },
       }),
     }),
-    adminDashboardMetrics: builder.query({
-      query: (id) => `/api/admin/dashboard`,
-      providesTags: ["Users"],
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          const result = await queryFulfilled;
-          return result;
-        } catch (err) {
-          const { errorMessage } = parseError(err);
-          toastError(errorMessage);
-        }
-      },
-    }),
+   
   }),
 });
 
