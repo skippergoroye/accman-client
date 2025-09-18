@@ -31,7 +31,10 @@ const AccountSettings = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { userInfo } = useSelector((state) => state.authUser);
   const [updateUser, { isLoading }] = useUpdateUserMutation();
-  const { data: userData } = useGetSingleUserByIdQuery(userInfo?._id);
+  const { data: userData } = useGetSingleUserByIdQuery(userInfo?.id);
+
+
+  console.log("usuusus", userData)
 
   const {
     register,
@@ -66,11 +69,11 @@ const AccountSettings = () => {
 
   const formSubmitHandler = async (data) => {
     try {
-      const id = userInfo?._id;
+      const id = userInfo?.id;
       if (!id) {
         return;
       }
-      const updatedUserData = { ...data, _id: id };
+      const updatedUserData = { ...data, id: id };
       const res = await updateUser({
         id,
         updatedUser: updatedUserData,

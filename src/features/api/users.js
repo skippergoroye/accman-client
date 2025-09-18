@@ -75,22 +75,50 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       query: (userId) => `/dashboard/find/user/${userId}`,
     }),
 
+
+   
+
+
+
+   
+
+    getSingleUserById: builder.query({
+      query: (id) => `/user/find/${id}`,
+    }),
+
     updateUser: builder.mutation({
       query: ({ id, updatedUser }) => ({
-        url: `/api/user/${id}`,
+        url: `/user/${id}`,
         method: "PUT",
         body: updatedUser,
       }),
     }),
-    getSingleUserById: builder.query({
-      query: (id) => `/api/user/find/${id}`,
-    }),
+  
     deleteUser: builder.mutation({
       query: (id) => ({
         url: `/api/user/${id}`,
         method: "DELETE",
       }),
     }),
+
+   /** to fix balance */
+      getBalance: builder.query({
+      query: (id) => `/dashboard/balance`,
+      providesTags: ["Users"],
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          return result;
+        } catch (err) {
+          const { errorMessage } = parseError(err);
+          toastError(errorMessage);
+        }
+      },
+    }),
+
+    // stope here
+
+
 
     getTransactionsUserId: builder.query({
       query: (userId, tranId) => `/api/transaction/${userId}/${tranId}`,
@@ -105,19 +133,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
-    getBalance: builder.query({
-      query: (id) => `/dashboard/balance`,
-      providesTags: ["Users"],
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          const result = await queryFulfilled;
-          return result;
-        } catch (err) {
-          const { errorMessage } = parseError(err);
-          toastError(errorMessage);
-        }
-      },
-    }),
+   
   }),
 });
 

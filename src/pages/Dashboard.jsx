@@ -6,10 +6,19 @@ import RecentActivity from "../components/dashboard/RecentActivity";
 import TransactionList from "../components/dashboard/TransactionList";
 import { useGetBalanceQuery } from "../features/api/users";
 import EditCash from "../utils/editCash";
+import { useSelector } from "react-redux";
+import {
+  useGetSingleUserByIdQuery,
+} from "../features/api/users";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data, isFetching } = useGetBalanceQuery();
+   const { userInfo } = useSelector((state) => state.authUser);
+   const { data: userData } = useGetSingleUserByIdQuery(userInfo?.id);
+  
+
+  // const { data, isFetching } = useGetBalanceQuery();
+  // console.log("data", data)
 
   return (
     <DashboardLayout>
@@ -22,7 +31,7 @@ const Dashboard = () => {
           <p className="text-sm">
             NGN{" "}
             <span className="text-2xl font-semibold">
-              <EditCash amount={data?.balance || 0} />
+              <EditCash amount={userData?.data?.walletBalance || 0} />
             </span>
           </p>
         </div>
