@@ -32,7 +32,6 @@ export const adminApiSlice = apiSliceAdmin.injectEndpoints({
           dispatch(setUsers(result?.data?.data));
           return result;
         } catch (err) {
-          // console.log({ err }, "getProfile");
           const { errorMessage } = parseError(err);
           toastError(errorMessage);
         }

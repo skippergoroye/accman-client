@@ -16,6 +16,10 @@ const AdminDashboard = () => {
 
   const { data } = useAdminDashboardMetricsQuery();
 
+
+
+  console.log("data", data)
+
   return (
     <DashboardLayout>
       <div className="grid grid-cols-3 gap-4 pr-4">
@@ -23,6 +27,13 @@ const AdminDashboard = () => {
           title={"Total Balance"}
           amount={data?.data?.totalBalance || 0}
           isAmount={true}
+        />
+
+        <TopCard
+          title={"Successful Transactions"}
+          textColor="text-red-500"
+          amount={data?.data?.successfulTransactions || 0}
+          isAmount={false}
         />
         <TopCard
           title={"Pending Transactions"}
